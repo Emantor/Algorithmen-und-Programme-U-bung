@@ -1,0 +1,150 @@
+\section{Übung 1 (3.11.2011)}
+Benutzername: aupvz \\
+Passwort: aupvz1112 \\
+\subsection{Aufgabe 1}
+Terminierend: Algorithmus hält an \\
+Determiniert: Algorithmus liefert bei selber Eingabe selbes Ergebnis \\
+Deterministisch: Alg. liefert bei selber Eingabe selbes Ergebnis über die selben Zwischenergebnisse \\
+
+\begin{table}[h]
+\begin{tabular}{c|c|c|c}
+	 ~ & terminiernd & determiniert & deterministisch \\
+	a) &  ja & ja & ja\\
+	b) Zahl $\notin \{-1,0,1\}$ & ja & nein & nein \\ 
+	Zahl $\in \{-1,0,1\}$ & nein & nein & nein \\ 
+\end{tabular}
+\end{table}
+a) Terminierend? \\
+\begin{itemize}
+\item[=>] Keine Schleifen
+\item[=>] Algorithmus hält direkt an
+\item[=>] terminierend
+\end{itemize}
+
+Determiniert? \\
+\begin{itemize}
+\item[->] Eindeutig reproduzierbares Ergebnis für sämtliche Eingabewerte? \\
+ p $\in \mathbb{Z}$, $q=0$ => erg= -1, q |= 0 => erg = p \% q
+ \item[=>] determiniert
+ \end{itemize}
+ 
+ deterministisch?
+\begin{itemize}
+ \item[-] Gibt es Zwischenergebnisse? (falls nein -> deterministisch)
+ \item[-] Hier ja: Ergebnis der Abfrage q |= 0
+ \item[-] Zwischenergebnis immer gleich bei gleichem q
+ \item[=>] deterministisch
+\end{itemize}
+
+b) \begin{itemize}
+ \item[-] Rechner wählt beliebige Zahl
+  \begin{itemize}
+   \item[->] Zufallszahl zwischen -10 und 20
+   \item[->] nicht determiniert
+   \item[->] nicht deterministisch
+  \end{itemize}
+  \item[-] Trotzdem terminierend?
+  \item[-] Bsp für Zahl = 2
+  \begin{itemize}
+   \item[1.] Zahl = 2
+   \item[2.] Zahl = $2*2$ = 4
+   \item[3.] Zahl > 10? nein => gehe zu 2
+   \item[2.] Zahl = $4*4$ = 16
+   \item[3.] Zahl > 10? ja => Ausgabe und Ende
+   \item[=>] terminierend
+  \end{itemize}
+  \item[-] Aber: Abbruchbedingung der Schleife wird nur erreicht, wenn Zahl im Laufe des Alg. wächst, dies gilt nicht für die Zahl $\in \{-1,0,1\}$ => dann nicht terminiert
+\end{itemize}
+
+\subsection{Einführung in C++}
+Datentypen \\
+\begin{table}[h]
+\begin{tabular}{c|c|c}
+	Datentyp & Bedeutung & Beispiel \\
+	int & Integer-Zahl (ganze Zahl) & -2;45 \\
+	float & Gleitkommazahl & -4.342;7.543 \\
+	char & Character (Zeichen) & 'a'; 'C'; '?'; '7' \\
+	bool & \glq Wahr-Falsch-Variable \grq & true, false \\
+	string & Zeichenkette & ''Wort'';''2plus 3=5'' \\
+\end{tabular}
+\end{table}
+\underline{Anlegen einer Variable} \\
+\begin{lstlisting}
+Datentyp Variablenname;
+\end{lstlisting}
+Wichtig: Jede Anweisung muss mit einem Semikolon abgeschlossen werden.
+
+Bsp: 
+\begin{lstlisting}
+float kommazahl;
+\end{lstlisting}
+Zu beachten bei Namensgebung
+\begin{itemize}
+\item[-] C++ ist ''case sensitiv'', dh. Groß- und Kleinschreibung wird beachtet
+ \begin{lstlisting}
+ => int zahl; und int Zahl; // sind zwei verschiedene Variablen
+ \end{lstlisting}
+ \item[-] Keine Sonderzeichen: bool grüner100\euro{}schein; geht nicht!
+ \item[-] Keine reservierten Worte: char string;
+ \item[-] Keine Nummern am Anfang: int 5teZahl; geht nicht!
+\end{itemize}
+
+\subsubsection{Wertezuweisung}
+\begin{lstlisting}
+int i; // dies ist ein Kommentar
+i = 3; // i wird der Wert 3 zugewiesen
+int k;
+k = i; // k ist ebenfalls 3
+k = i + 5; // k = 3+5 = 8
+k = k*k; // k = 8*8 = 64
+k = k/i; // k = 64/3 = 21 Achtung:ganzzahlige Division
+k = k*(k+2); // k = 3*(21+2) = 69
+k = k%50; // k = 69%50 = 19
+float f;
+f = 1;
+f = 1/3; // f=0.33333...
+char c;
+c = '?';
+string s;
+s = "Text";
+s = s + "zeile"; // s = "Textzeile"
+bool b;
+b = true;
+b = !b; // Negation von b => b = nicht true => b = false
+\end{lstlisting}
+\subsubsection{Gültigkeitsbereich von Variablen}
+\begin{itemize}
+\item[-] Bereiche werden durch \{\} gekennzeichnet
+\item[-] Variablen sind nur innerhalb desjenigen Bereichs gültig, in dem sie deklariert wurden
+\item[-] außerhalb jeden Bereichs deklarierte Variablen heißen \underline{global} und sind überall verfügbar
+\item[-] Variablen sind nur NACH ihrer Deklaration verfügbar
+\end{itemize}
+Bsp:
+\begin{lstlisting}
+int weltweit = 4; //global
+{
+	int a;
+	{
+		a = 1;
+		int b = 2;
+		a = weltweit + b;
+	}
+	int c;
+	c = a + weltweit;
+	c = a + b; //UNGUELTIG!, da b in diesem Bereich nicht bekannt ist
+}
+\end{lstlisting}
+\subsubsection{Ein- und Ausgabe in der Konsole}
+\begin{itemize}
+\item[-] Nutzung der Funktionen cout (Ausgabe) und cin (Eingabe)
+\item[-] Einbindung von <iostream> nötig
+\item[-] Befehle müssen \lstinline{using namespace std;} freigeschaltet werden
+\item[-] Werte werden mittels \lstinline{<<} und \lstinline{>>} übergeben
+\end{itemize}
+Bsp:
+\begin{lstlisting}
+int zahl;
+cout << "Bitte Zahl eingeben:";
+cin >> zahl;
+cout << "Das Quadrat lautet" << zahl*zahl << endl; // endl -> Zeilenumbruch
+\end{lstlisting}

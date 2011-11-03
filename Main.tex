@@ -1,0 +1,87 @@
+\documentclass[12pt,a4paper]{scrartcl}
+\usepackage{geometry}                % See geometry.pdf to learn the layout options. There are lots.
+\geometry{a4paper}                   % ... or a4paper or a5paper or ... 
+%\geometry{landscape}                % Activate for for rotated page geometry
+%\usepackage[parfill]{parskip}    % A-bombctivate to begin paragraphs with an empty line rather than an indent
+\usepackage{graphicx}
+\usepackage{amssymb}
+\usepackage{epstopdf}
+%Eigene Packages
+\usepackage{ngerman}			% Deutsch als Sprache (Silbentrennung etc)
+\usepackage{longtable}			% Unterstützung für Seitenumfassende Tabellen
+\usepackage{gensymb}			% Symbole
+\usepackage{ae}				% Besseres Schriftbild in PDF Dateien
+\usepackage[pdftex]{hyperref}		% Paket für klickbares Inhaltsverzeichnis, Miniaturen usw
+\usepackage[utf8]{inputenc}	% Paket für Umlaute (utf8 encoding), alte haben unter Umständen noch applemac! oder noch schlimmer: westeuropäisch windows
+\usepackage [T1]{fontenc}		
+% eigene Packages
+
+% Pakete von Rouven
+\usepackage{listings}
+\usepackage{color}
+\usepackage{eurosym}
+
+%color Definitionen
+\definecolor{middlegray}{rgb}{0.5,0.5,0.5}
+\definecolor{lightgray}{rgb}{0.8,0.8,0.8}
+\definecolor{orange}{rgb}{0.8,0.3,0.3}
+\definecolor{yac}{rgb}{0.6,0.6,0.1}
+ 
+% Listings Settings
+ \lstset{
+   language=c++,
+   backgroundcolor=\color{lightgray},
+   basicstyle=\scriptsize\ttfamily,
+   keywordstyle=\bfseries\ttfamily\color{orange},
+   stringstyle=\color{blue}\ttfamily,
+   commentstyle=\color{middlegray}\ttfamily,
+   emph={square}, 
+   emphstyle=\color{blue}\texttt,
+   emph={[2]root,base},
+   emphstyle={[2]\color{yac}\texttt},
+   showstringspaces=false,
+   flexiblecolumns=false,
+   tabsize=2,
+   numbers=none,
+   numberstyle=\tiny,
+   numberblanklines=false,
+   stepnumber=1,
+   numbersep=10pt,
+   xleftmargin=15pt
+ }
+ 
+ \hypersetup
+{%
+pdftitle = {Algorithmen und Programme Übung},
+pdfsubject = {AuP},
+pdfauthor = {Rouven Czerwinski},
+pdfkeywords = {AuP, Algorithmen, Programme, Übung},
+colorlinks = {true},
+linkcolor={blue},
+anchorcolor={black}
+}
+% Eigene Befehle
+\newcommand\txtunderbrace[2]{%
+  \settowidth{\myx}{#2}%
+  \begin{tabular}[t]{@{}>{\centering}p{\myx}@{}}%
+    \ensuremath{\underbrace{\text{#2}}}\tabularnewline
+    \makebox[0pt][c]{#1}~\tabularnewline
+  \end{tabular}%
+}%\txtunderbrace{Text unter der Klammer}{Text im Kontext}
+
+\DeclareGraphicsRule{.tif}{png}{.png}{`convert #1 `dirname #1`/`basename #1 .tif`.png}
+
+\title{Algorithmen und Programme \\ Übung}
+\author{Protokolliert von Rouven Czerwinski}
+\date{Version vom \today}                                           % Activate to display a given date or no date
+
+\begin{document}
+\maketitle
+\newpage
+
+\tableofcontents
+\listoftables
+\newpage
+
+\input{Aufgabe1}
+\end{document}
