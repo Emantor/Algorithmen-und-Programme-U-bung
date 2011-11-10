@@ -1,0 +1,159 @@
+\section{Übung 2 (10.11.2011)}
+\subsection{Vergleichs- und Verknüpfungsoperatoren}
+\begin{table}[h]
+\begin{tabular}{c|c}
+Operator & Bedeutung \\
+\hline
+< & kleiner \\
+> & größer \\
+>= & größer gleich \\
+== & gleich \\
+!= & ungleich \\
+\&\& & logisches UND \\
+|| & logisches ODER \\
+\end{tabular}
+\end{table}
+Nutzung z.B. in \texttt{if} Abfragen
+\begin{lstlisting}
+if (Bedingung) // WENN Bedingung erfuellt
+{
+	Anweisung; // fuehre Anweisung aus
+}
+
+if (3 > 5)
+{
+	cout >> "PC kaputt" << endl;
+}
+
+int a = 6;
+if (zahl == a)
+{
+	cout << "Zahl gleich" << a << endl;
+}
+else		// wird ausgefuehrt wenn die Bedingung nicht erfuellt ist.
+{
+	cout << "Zahl ist ungleich" << a << endl;
+}
+
+int b = 9;
+if (zahl > a && zahl > b)
+{
+	cout << "Zahl ist am Groessten" << endl;
+}
+
+bool bigger;
+bigger = zahl > b;
+if (bigger || zahl < b)
+{
+	cout << "Zahl ungleich" << b << endl;
+}
+else
+{
+	cout << "Zahl gleich" << b << endl;
+}
+\end{lstlisting}
+
+\subsection{Definition von Funktionen (Unterprogramme)}
+\begin{lstlisting}
+Rueckgabetyp Funktionsname(Parameter1,Parameter2,...)
+{
+	Anweisung;
+	return rueckgabewert; 	// muss vom Datentyp Rueckgabetyp sein
+}
+
+int Addiere(int a, int b)
+{
+	int sum;
+	sum = a +b;
+	return sum;
+}
+
+void Ausgabe(int zahl)
+{
+	cout << "Zahl ist" << zahl << endl;
+}
+\end{lstlisting}
+Funktionen vom Typ void haben keinen Rueckgabewert und somit keine \texttt{return} Anweisung.
+
+Aufbau eines C++-Programms:
+\begin{lstlisting}
+// Einbinden von Bibliotheken
+#include <iostream>
+using namespace std; // noetig fuer cout und cin
+// Funktionsdefinitionen
+int Addiere(int a, int b)
+{
+	int sum;
+	sum = a +b;
+	return sum;
+}
+
+void Ausgabe(int zahl)
+{
+	cout << "Zahl ist" << zahl << endl;
+}
+// Hauptprogramm
+int main()
+{
+	int zahl1 = 4;
+	int zahl2 = 5;
+	int summe;
+	summe = Addiere(zahl1,zahl2);
+	Ausgabe(summe);
+	return 0; 		// Im Hauptprogramm nicht notwendig
+}
+\end{lstlisting}
+\subsection{Vom Quellcode zum ausführbaren Programm}
+Quellcode(Text) $\rightarrow$ kompilieren (Übersetzung in Maschinensprache) $\rightarrow$ Compilerfehler? \\
+Falls ja, muss der Quellcode überprüft werden. \\
+Falls Nein (syntaktische Korrektheit des Programms) $\rightarrow$ Programm ausführen $\rightarrow$ Laufzeitfehler? \\
+Falls ja, neuerliche Bearbeitung des Quellcodes. \\
+Falls nein, Programmende \\
+(evtl. mit TikZ in Blockdiagramme umsetzen)
+
+\subsection{Schleifen}
+Schleifen werden genutzt, um Anweisungen/Blöcke mehrmals auszuführen.
+
+
+\texttt{for}-Schleife: Verwendung, wenn Anzahl der Durchläufe bekannt
+\begin{lstlisting}
+for (Startanweisung, Bedingung, Zaehlanweisung)
+{
+	Anweisung; // fuehre aus, solange Bedingung erfuellt
+}
+
+int z = 0;
+for (int i = 1, i < 10, i++)
+{
+	z = z +i;
+	cout << z << endl;
+}
+\end{lstlisting}
+\begin{table}[h]
+\begin{tabular}{c|c|c}
+Schleifendurchlauf & \texttt{i} & \texttt{z}\\
+\hline
+1 & 1 & 1 \\
+2 & 2 & 3 \\
+3 & 3 & 6 \\
+\dots & \dots & \dots \\
+9 & 9 & 36 + 9 = 45 \\
+\end{tabular}
+\end{table}
+Danach Abbruch, weil \texttt{i} nicht mehr kleiner als 10 ist. \\
+
+\texttt{while}-Schleife: Verwendung, wenn Anzahl der Durchläufe nicht bekannt.
+\begin{lstlisting}
+while (Bedingung)
+{
+	Anweisung; // SOLANGE WIE Bedingung ERFUELLT
+}
+
+int eingabe = 0;
+while (engage != 8)
+{
+	cout << "Bitte 8 eingeben!" << endl;
+	cin >> eingabe;
+}
+cout << "Danke, Du hast " << eingabe << " eingegeben";
+\end{lstlisting}
