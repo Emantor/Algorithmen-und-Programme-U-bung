@@ -1,0 +1,167 @@
+\section{Übung 3 (17.11.2011)}
+\begin{table}[h]
+\begin{tabular}{c|c|c|c}
+Wertebereich & terminierend & determinierend & deterministisch \\
+\hline
+a > 20 & ja & ja & nein\\
+10 < a <= 20 & ja & nein & nein \\
+2 <= a <= 10 & ja & ja & ja \\
+1 < a < 2 & ja & ja & ja  \\
+a <= 1 & nein & nein & nein \\
+\end{tabular}
+\end{table}
+Fallunterscheidungen nötig
+\begin{itemize}
+\item a > 20:
+\begin{itemize}
+ \item[-] 1. +2. if-Bedingung erfüllt
+ \item[-] \underline{Zufallszahl} wird erst abgezogen, dann wieder hinzuaddiert \\
+ $\Rightarrow$ terminierend, determiniert, nicht deterministisch
+\end{itemize}
+\item 10 < a <= 20:
+\begin{itemize}
+\item[-] nur 1. if-Bedingung erfüllt
+\item[-] Zufallszahl wird hinzuaddiert \\
+ $\Rightarrow$ terminierend, nicht determiniert, nicht deterministisch
+\end{itemize}
+\item 10 <= a:
+\begin{itemize}
+\item[-] if-Bedingung nicht erfüllt
+\item[-] while-Schleife nur für a < 2 \\
+ $\Rightarrow$ für 2 <= a <= 10 wird nur der Eingabewert zurückgegeben \\
+ $\Rightarrow$ terminierend, determiniert, deterministisch
+\end{itemize}
+\item 1 < a <2:
+\begin{itemize}
+ \item[-] a wächst bis a => 2, dann wird Schleife beendet \\
+ $\Rightarrow$ terminierend, determiniert, deterministisch
+\end{itemize}
+\item a <= 1:
+\begin{itemize}
+ \item[-] a muss wachsen, damit Abbruchbedingung erfüllt wird \\
+ $\Rightarrow$ nur für a > 1der Fall \\
+  $\Rightarrow$ nicht terminierend, nicht determiniert, nicht deterministisch
+\end{itemize}
+\end{itemize}
+
+\subsection{Aufgabe 3}
+\begin{enumerate}
+\item Durchschnitt
+\begin{enumerate}
+\item[a)] Eingabewerte: Start- und Endwert des Wertebereichs \\
+	      Rückgabewerte: Durchschnittswert, ganze Zahl \\
+	      $\Rightarrow$ Funktionskopf: int Durchschnitt(int \texttt{start}, int \texttt{end})
+\item[b)] Vorgehen:
+\begin{enumerate}
+\item Aufsummieren aller Zahlen von \texttt{start} bis \texttt{end}
+\item Bestimmen der Anzahl der Summanden
+\item Teilen der Summe durch die Anzahl
+\item Rückgabe des Ergebnisses
+\end{enumerate}
+Nötige Hilfsmittel:
+\begin{itemize}
+\item[-] Variable zur Speicherung der Summe
+\item[-] Schleife (for oder while)
+\item[-] Variable für die Anzahl
+\end{itemize}
+\item Lösung mittels for-Schleife:
+\begin{lstlisting}
+int Durchschnitt_FOR(int start, int end)
+{
+	int summe = 0; // Initialisierung mit 0
+	for (int i=start; i<=end; i=i+1)
+	{
+		summe =summe + i;
+	}
+	int anzahl = end - start;
+	int schnitt = summe / Anzahl;
+	return schnitt;
+}
+\end{lstlisting}
+Lösung mittels while-Schleife:
+\begin{lstlisting}
+int Durchschnitt_WHILE(int start, int end)
+{
+	int summe = 0; // Initialisierung mit 0
+	int anzahl = end - start;
+
+	int i=start;
+	while (i<=end)
+	{
+		summe = summe + i;
+		i = i +1;
+		Anzahl = Anzahl + 1;
+	}
+	int schnitt = summe / Anzahl;
+	return schnitt;
+}
+}
+\end{lstlisting}
+Hauptprogramm:
+\begin{lstlisting}
+int main()
+{
+	int ds = Durchschnitt_FOR(4, 9);
+	cout << "Durschnitt ist " << ds << endl;
+}
+\end{lstlisting}
+\end{enumerate}
+\item Quersumme \\
+Quersumme(538) = 5 + 4 + 8 = 16; \\
+\begin{enumerate}
+\item Problem: Wie können die Ziffern separiert werden? \\
+	Lösung: Nutzung des Operators \%10 und /10
+\item Vorgehen: \\
+	Aufsummieren von hinten: \\
+	QS(538) = 8 + QS(53) = 8 + 3 QS(5) = 8 + 3 + 5 QS(0) \\
+	Algorithmus: Solang die Zahl größer als Null:
+	\begin{enumerate}
+	\item Ermitteln und Aufsummieren der letzten Ziffer
+	\item Abtrennen des letzten Ziffer
+	\end{enumerate}
+	Nötige Hilfsmittel:
+	\begin{itemize}
+	\item Variable für Summe
+	\item Schleife (bis Zahl == 0)
+	\item Modulo Operator
+	\end{itemize}
+\item Funktionskopf:
+\begin{enumerate}
+\item zu übergeben: Ganze Zahl $\Rightarrow$ int zahl
+\item Rückgabe: Quersumme $\Rightarrow$ int summe \\
+\lstinline{int Quersumme(int zahl)}
+\end{enumerate}
+\item Programm:
+\begin{lstlisting}
+int Quersumme(int zahl)
+{
+	int summe = 0;
+	while (zahl > 0)
+	{
+	int Ziffer = zahl % 10;
+	summe = summe +ziffer;
+	zahl = zahl / 10;
+	}
+	return summe;
+}
+\end{lstlisting}
+\newpage
+
+Ablauf
+Vor der Schleife: summe = 0, zahl = 538
+\begin{table}[h]
+\begin{center}
+\begin{tabular}{c|c|c|c}
+Durchlauf & Ziffer & summe & zahl\\
+\hline
+1. & 538\%10=8 & 0 + 8 = 8 & 538/10 = 53 \\
+2. & 53\%10=3 & 8 + 3 = 11 & 53/10 = 5 \\
+3. & 5\%10=5 & 11 + 5 = 16 & 5/10 = 0 \\
+\end{tabular}
+\end{center}
+\end{table}
+$\Rightarrow$ Abbruch, da zahl nicht mehr > 0
+$\Rightarrow$ Rückgabe der Summe
+\end{enumerate}
+\end{enumerate}
+
