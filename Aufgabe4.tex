@@ -1,0 +1,37 @@
+\section{Aufgabe 4}
+\begin{enumerate}
+\item Funktionsentwicklung
+\begin{lstlisting}
+void Mittelwert(float &mittel)
+{
+	float summe = 0;
+	for(int i=0; i<n; i=i+1)
+	{
+		summe = summe + Notenspiegel[i];
+	}
+	mittel = summe / N;
+}
+\end{lstlisting}
+Bucketsort für Klausurnoten \\
+Wertebereich von 0\dots 6 \\
+$\Rightarrow$ 7 Eimer werden benötigt \\
+z.B. 3,6,3,1,1,0,3,4,2
+\begin{table}[h]
+\begin{center}
+\begin{tabular}{c|c|c|c|c|c|c|c}
+bucket & 0 & 1 & 2 & 3 & 4 & 5 & 6\\
+\hline
+~& | & || & | & ||| & | & ~ & | \\
+\end{tabular}
+\end{center}
+\end{table}
+Hilfsmittel:
+\begin{itemize}
+\item[-] Array aus Integern (dienen als Eimer)
+\item[-] Schleife zum Durchlaufen der Eingabewerte und zum Füllen der Eimer. \\
+	Der Zahlenwert entspricht der Position im Array
+\item[-] Schleife um die Zahlen sortiert ins Array zurückzuschreiben.
+\end{itemize}
+
+\end{enumerate}
+

@@ -1,0 +1,164 @@
+\section{Grundlagen 2011}
+\begin{itemize}
+    \item[-] Datentypen (int, float, bool, string, char)
+    \begin{itemize}
+        \item[*] Wertzuweisungen (=)
+        \item[*] Verknüpfungen (<, >, ==, \& \&)
+    \end{itemize}
+    \item[-] Konsolenausgabe und -eingabe (cout, cin)
+    \item[-] Fallunterscheidungen (if + else)
+    \item[-] Schleifen (for, while)
+    \item{-} Funktionen
+    \begin{itemize}
+        \item[*] Parameterübergabe (call-by-reference, call-by-value)
+        \item[*] Rückgabewert (return)
+    \end{itemize}
+    \item[-] Rekursion
+    \begin{itemize}
+        \item[*] Abbruchbedingungen, Zwischenschritt, Selbstaufruf
+    \end{itemize}
+    \item[-] Selbstdefinierte Datenstrukturen (struct)
+    \item[-] Datenfelder, Arrays (1D, 2D)
+    \item[-] Groß-O-Notation (O(1), O(n), O($5n^3 + 3n$) = O($n^3$),)
+\end{itemize}
+\begin{lstlisting}
+float zahl = 5.7;
+float* zahlZeiger = NULL;
+zahlZeiger = new float;
+*zahlZeiger = 4.5;
+float* zahlZeiger2 = zahlZeiger;
+
+----
+
+struct element
+{
+    int i;
+    string s;
+    float* f;
+};
+element struktur;
+struktur.i = 7;
+*(struktur.f) = 9.3;
+struktur.f = new float;
+
+element* pStruktur;
+pStruktur = new element;
+pStruktur -> i = 8;
+pStruktur -> f = new float;
+*(pStruktur -> f) = 3.7;
+
+int p[3];
+p[0] = 4;
+int* q;
+q = new int[4];
+q[3] = 5;
+\end{lstlisting}
+\underline{Verkettete Liste} \\
+Verkettete Listen sind dynamische Datenstrukturen deren Elemente structs von folgender Form sind:
+\begin{lstlisting}
+struct ListenElement
+{
+    // Variablenliste = Inhalt
+    int i;
+    ListenElement* next; // Zeiger auf naechstes Element
+}
+
+ListenElement* e;
+e = new Listenelement;
+e -> i = 5;
+\end{lstlisting}
+ListenElement: Inhalt | next Zeiger \\
+e: 5 | $\Rightarrow$ ? (NULL)
+\begin{lstlisting}
+e -> next = NULL;
+ListenElement* nachfolger;
+nachfolger = new ListenElement;
+nachfolger -> i = 3;
+nachfolger -> next = NULL;
+e -> next = nachfolger;
+\end{lstlisting}
+Ausgabe einer verketteten Liste:
+\begin{lstlisting}
+void Ausgabe(ListenElement* first)
+{
+    ListenElement* z;
+    z = first;
+    while (z != NULL)
+    {
+        cout >> z -> i << endl;
+        z = z -> next;
+    }
+}
+Ausgabe (e);
+
+ListenElement* FindeLetztes(ListenElement* first)
+{
+    ListenElement* z = first;
+    while(z -> nex != NULL)
+    {
+        z = z -> next;
+    }
+    return z;
+}
+\end{lstlisting}
+Löschen eines Elements: \\
+Vorläufer -> | | -> | | -> | | \\
+Mittleres Element löschen:
+\begin{lstlisting}
+void Loeschenachfolger(ListenElement* vorlaeufer)
+{
+    ListenElement* buffer = vorlaeufer -> next;
+    vorlaeufer -> next = buffer -> next; // = vorlaeufer -> next -> next;
+    delete buffeR;
+}
+\end{lstlisting}
+
+\subsection{Klausur H08, Aufgabe 3}
+Aufgabenteil b)
+\begin{lstlisting}
+double Durchschnitt(Student* s)
+{
+    Student* h;
+    h = s;
+    double summe = 0;
+    int anzahl = 0;
+    while(h != NULL)
+    {
+        summe = summe + h -> note;
+        anzahl = anzahl + 1;
+        h = h -> next
+    }
+    return summe / anzahl;
+}
+\end{lstlisting}
+Aufgabenteil a) Programm stürzt ab
+\begin{lstlisting}
+void ListeAusgeben(Student* s)
+{
+    if (s == NULL){return;}
+    cout << s -> name << endl;
+    ListeAusgeben(s -> next);
+}
+\end{lstlisting}
+2. O($n$) mit $n$ Anzahl der Listenelemente \\
+3. Liste wird Rückwärts ausgegeben (Matruschka Figuren, Verschachtelung) \\
+Aufgabenteil d)
+\begin{lstlisting}
+void EntferneDuplikate(Student* s)
+{
+    Student* h = s;
+    while (h != NULL)
+    {
+        Student* h2 = h -> next;
+        while (h2 != NULL)
+        {
+            if(h -> matrikelnr == h2 -> next)
+            {
+                EntferneNachfolger(h2);
+            }
+            h2 = h2 -next;
+        }
+        h = h -> next;
+    }
+}
+\end{lstlisting}

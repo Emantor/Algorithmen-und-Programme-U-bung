@@ -163,5 +163,137 @@ Durchlauf & Ziffer & summe & zahl\\
 $\Rightarrow$ Abbruch, da zahl nicht mehr > 0
 $\Rightarrow$ Rückgabe der Summe
 \end{enumerate}
+\item Potenz
+\begin{enumerate}
+\item Vorgehen \\
+$a^b = a*a* \dots *a$ \\
+a muss mehrmals mit sich selbst multipliziert werden \\
+$\Rightarrow$ Schleife: Frage: Wie viele Durchläufe? \\
+z.B. $a^3 = a * a * a$ \\
+2 Multiplikationen \\
+$\Rightarrow$ Schleife muss (b-1)-mal durchlaufen werden \\
+$\Rightarrow$ fortschleife zur Multiplikation mit Index von 1 bis b-1 \\
+Sonderfälle: \\
+\begin{itemize}
+\item b=0: Ergebnis immer 1 \\
+\item b negativ: Ergebnis $\frac{1}{a^{-b}}$ \\
+\end{itemize}
+Algorithmus:
+\begin{enumerate}
+\item Prüfe, ob b==0. Falls ja, gib 1 zurück
+\item Prüfe, ob b<0. Falls ja, negiere b und merke
+\item Multipliziere a (b-1)-mal mit sich selbst
+\item Falls b ursprünglich negativ war, bilde Kehrwert
+\item Gib das Ergebnis zurück
+\end{enumerate}
+Nötige Hilfsmittel:
+\begin{enumerate}
+\item if-Abfrage
+\item Hilfsvariable War b negativ (\texttt{bool})
+\item fortschleife + Variable für Zwischenergebnis
+\end{enumerate}
+\item zu übergeben an die Funktion: \\
+Basis $\in \mathbb{R}$, Exponent $\in \mathbb{Z}$ \\
+$\Rightarrow$ \texttt{float} a, \texttt{int} b \\
+Rückgabewert $a^b =\mbox{\texttt{float}}*\mbox{\texttt{float}}*\mbox{\texttt{float}}$ \\
+$\Rightarrow$ \texttt{float} Ergebnis \\
+Funktionskopf
+\begin{lstlisting}
+float Potenz(float a, int b)
+\end{lstlisting}
+\item Funktion
+\begin{lstlisting}
+float Potenz(float a, int b)
+{
+	if(b==0)
+	{
+		return 1;
+	}
+	bool neg=false;
+	
+	if(b<0)
+	{
+		neg = true;
+		b = b * (-1);
+	}
+	float ergebnis = a;
+	for (int i=1; i<=b-1; i=i-1)
+	{
+	ergebnis = ergebnis * a;
+	}
+	if (neg==true)
+	{
+		ergebnis = 1 / ergebnis;
+	}
+	return ergebnis;
+}
+\end{lstlisting}
+\item Hauptprogramm
+\begin{lstlisting}
+int main()
+{
+	float basis;
+	int exponent;
+	cout << "Basis?";
+	cin >> basis;
+	cout << "Exponent?";
+	cin >> exponent;
+	float potenz;
+	potent = Potenz(basis, exponent);
+	cout << basis << " hoch " << Exponent << " = " << potenz << endl;
+}
+\end{lstlisting}
+\end{enumerate}
 \end{enumerate}
 
+\subsection{Parameterübergabe an Funktionen}
+call-by-value: Werteaufruf, es wird eine lokale Kopie der Variable erzeugt. \\
+call-by-reference: Referenzaufruf, es wird eine Referenz ($\Rightarrow$ ein Verweis) auf die Variable Im Hauptprogramm übergeben. Wird in Quellcode durch \glqq \&\grqq  signalisiert.
+\begin{lstlisting}
+void SquareCube(int &squared, int &cubed, in i)
+{
+	cubed = i * i * i;
+	i = i * i;
+	squared = i;
+}
+
+int main()
+{
+	int quadriert, kubiert;
+	int zahl = 7;
+	SquareCube(quadriert, kubiert, zahl);
+	cout << zahl << " hoch 2 = " << quadriert << endl;
+	cout << zahl << " hoch 3 = " << kubiert << endl;
+}
+\end{lstlisting}
+\subsection{Arrays}
+Arrays sind Vektoren (=Datenfelder) mit mehreren Elementen vom gleichen Datentyp
+\begin{lstlisting}
+Datentyp Variablenname[Anzahl der Elemente];
+\end{lstlisting}
+Zugriff auf einzelne Elemente des Vektors über den Index i=0\dots Anzahl-1 \\
+z.B.
+\begin{lstlisting}
+int zahlen[6]; // ein Vektor bestehend aus 6 Zahlen
+zahlen[0] = 4; // Wertezuweisung des ersten Elements
+zahlen[5] = 23; // Wertezuweisung des letzten Elements
+\end{lstlisting}
+Mehrdimensionale Arrays:
+\begin{lstlisting}
+float Matrix[3][4];
+\end{lstlisting}
+\begin{table}[h]
+\begin{center}
+\begin{tabular}{c|c|c|c|c}
+~ & 0 & 1 & 2 & 3 \\
+\hline
+0 & 4.76 & ~& ~&~\\
+1 & ~& ~& ~&5.1\\
+2 & ~& ~& ~&~\\
+\end{tabular}
+\end{center}
+\end{table}
+\begin{lstlisting}
+Matrix[0][0] = 4.67; // Element in 0. Zeile, 0. Spalte
+Matrix[1][4] = 5.1;
+\end{lstlisting}
